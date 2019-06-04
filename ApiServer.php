@@ -17,8 +17,6 @@ class ApiServer {
             "action"  => $action,
             "handler" => $callback->bindTo($this),
         ];
-
-        $this->runHandlers();
     }
 
 
@@ -34,7 +32,7 @@ class ApiServer {
 
         foreach ($this->handlers as $handler) {
             if ($handler["action"] == self::getRequestParam("_action")) {
-                return $handler["handler"]($_REQUEST);
+                $handler["handler"]($_REQUEST);
             }
         }
     }
@@ -46,9 +44,22 @@ class ApiServer {
     }
 
 
+    public function echoJson($array)
+    {
+        echo json_encode($array, JSON_PRETTY_PRINT);
+    }
+
+
     public function exitJson($array)
     {
-        exit(json_encode($array, JSON_PRETTY_PRINT));
+        $this->echoJson($array);
+        exit;
+    }
+
+
+    public function __destruct()
+    {
+        $this->runHandlers();
     }
 
 
