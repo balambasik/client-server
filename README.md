@@ -19,7 +19,7 @@ $array = [1,2,3,4,5];
 
 $ApiServer->on("actionName2", function($requestdata) use ($array) {
     $this->echoJson($requestdata);
-    preint_r($array);
+    print_r($array);
 });
 ```
 
