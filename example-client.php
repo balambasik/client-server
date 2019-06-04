@@ -14,4 +14,6 @@ $res = $ApiClient->request("actionName", [
     "params" => rand(0,1000000)
 ]);
 
-var_dump($res);
+
+var_export($res->get());
+var_export($res->getArray());

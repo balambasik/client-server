@@ -2,12 +2,20 @@
 
 class ApiServer {
 
-    private $secret   = "";
-    private $handlers = [];
+    private $secret      = "";
+    private $enable_logs = "";
+    private $log_file    = "";
+    private $handlers    = [];
 
-    public function __construct($secret)
+    public function __construct($params)
     {
-        $this->secret = $secret;
+        $this->secret      = $params['secret'];
+        $this->enable_logs = isset($params['enable_logs']) ? $params['enable_logs'] : false;
+        $this->log_file    = isset($params['log_file']) ? $params['log_file'] : false;
+
+        if ($this->enable_logs) {
+            $this->requestLog($this->log_file);
+        }
     }
 
 
@@ -54,6 +62,17 @@ class ApiServer {
     {
         $this->echoJson($array);
         exit;
+    }
+
+
+    public function requestLog($filename)
+    {
+        $filename = $filename ? $filename : 'log.txt';
+
+        $data = "--------------------" . date("Y-m-d H:i:s") . "-----------------------" . PHP_EOL;
+        $data .= var_export($_REQUEST, true) . PHP_EOL;
+
+        file_put_contents($filename, $data, FILE_APPEND);
     }
 
 
