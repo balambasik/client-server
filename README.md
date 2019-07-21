@@ -1,36 +1,35 @@
-# Use Server
+# Using Server
 
 ```php
 <?php
 
-include_once 'ApiServer.php';
+include_once 'vendor/autoload.php';
 
-$ApiServer = new ApiServer([
+$ApiServer = new \Balambasik\ClientServer\ApiServer([
     "secret" => "cdd9ea63ace1f9873f3b510c2f613ab7c5538337",
     "enable_logs" => true,
 ]);
 
-
 $ApiServer->on("actionName", function($requestdata){
-    $this->echoJson($requestdata);
+    $this->exitJson($requestdata);
 });
 
-$array = [1,2,3,4,5];
+$array = [1, 2, 3, 4, 5];
 
 $ApiServer->on("actionName2", function($requestdata) use ($array) {
-    $this->echoJson($requestdata);
+    $this->exitJson($requestdata);
     print_r($array);
 });
 ```
 
-# Use Client
+# Using Client
 
 ```php
 <?php
 
-include_once 'ApiClient.php';
+include_once 'vendor/autoload.php';
 
-$ApiClient = new ApiClient([
+$ApiClient = new \Balambasik\ClientServer\ApiClient([
     "api_url" => "http://client-server/example-server.php",
     "secret" => "cdd9ea63ace1f9873f3b510c2f613ab7c5538337"
 ]);
@@ -42,4 +41,5 @@ $response = $ApiClient->request("actionName", [
 
 var_export($response->get());
 var_export($response->getArray());
+var_export($response->getArray('key'));
 ```

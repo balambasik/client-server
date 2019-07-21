@@ -57,7 +57,7 @@ class ApiServer {
 
     public function exitJson($array)
     {
-        $this->echoJson($array);
+        echo json_encode($array, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         exit;
     }
 
