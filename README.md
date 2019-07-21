@@ -1,3 +1,9 @@
+# Install using composer
+
+```text
+composer require balambasik/client-server
+```
+
 # Using Server
 
 ```php
