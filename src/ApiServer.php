@@ -1,6 +1,6 @@
 <?php
 
-namespace \Balambasik\ClientServer;
+namespace Balambasik\ClientServer;
 
 class ApiServer {
 
